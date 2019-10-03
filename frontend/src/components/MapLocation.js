@@ -5,7 +5,7 @@ import {
     withGoogleMap, 
     GoogleMap, 
     Marker,
-    Circle
+    Circle,
 } from "react-google-maps"
 
 const MyMapComponent = compose(
@@ -19,10 +19,17 @@ const MyMapComponent = compose(
     withGoogleMap
     )((props) =>
     <GoogleMap
-        defaultZoom={8}
+        defaultZoom={12}
         defaultCenter={{ lat: -34.397, lng: 150.644 }}
     >
-        {props.isMarkerShown && <Marker position={{ lat: -34.397, lng: 150.644 }} onClick={props.onMarkerClick} />}
+        {props.isMarkerShown && <Marker position={{ lat: -34.397, lng: 150.644 }} options={{ strokeColor: 'blue' }} onClick={props.onMarkerClick} />}
+        <Circle 
+            defaultCenter={{ lat: -34.397, lng: 150.644 }}
+            radius={3000}
+            options={{
+                strokeColor: 'red'
+            }}
+        />
     </GoogleMap>
 )
 
