@@ -3,7 +3,6 @@ import { Grid } from '@material-ui/core'
 import axios from 'axios'
 
 import {
-    MapLocation,
     MiniDrawer,
     Table,
 } from '../../components'
@@ -37,7 +36,6 @@ class PhysicianDashboard extends Component {
             <MiniDrawer>
                 <Grid container style={{padding: '0 80px'}} spacing='2'>
                     <Grid item xs={10}>
-                        <MapLocation />
                         <Filter />
                     </Grid>
                     <Grid item xs={12}></Grid>

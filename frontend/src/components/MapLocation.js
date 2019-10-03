@@ -25,7 +25,7 @@ const MyMapComponent = compose(
         {props.isMarkerShown && <Marker position={{ lat: -34.397, lng: 150.644 }} options={{ strokeColor: 'blue' }} onClick={props.onMarkerClick} />}
         <Circle 
             defaultCenter={{ lat: -34.397, lng: 150.644 }}
-            radius={3000}
+            radius={props.circleRadius}
             options={{
                 strokeColor: 'red'
             }}
@@ -58,6 +58,7 @@ export default class MapLocation extends React.PureComponent {
       <MyMapComponent
         isMarkerShown={this.state.isMarkerShown}
         onMarkerClick={this.handleMarkerClick}
+        circleRadius={this.props.circleRadius}
       />
     )
   }
