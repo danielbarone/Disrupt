@@ -2,6 +2,7 @@ import React from 'react'
 import { Grid } from '@material-ui/core'
 
 import {
+    MiniDrawer,
     Table,
 } from '../../components'
 import {
@@ -10,16 +11,16 @@ import {
 
 export default function PhysicianDashboard() {
     return (
-        <Grid container justify='center'>
-            <Grid item xs={6}>
-                
+        <MiniDrawer>
+            <Grid container style={{padding: '0 80px'}} spacing='2'>
+                <Grid item xs={10}>
+                    <Filter />
+                </Grid>
+                <Grid item xs={12}></Grid>
+                <Grid item xs={6}> 
+                    <Table />
+                </Grid>
             </Grid>
-            <Grid item xs={12}></Grid>
-            <Grid item xs={6}> 
-                <Table />
-            </Grid>
-            
-        </Grid>
-
+        </MiniDrawer>
     )
 }
