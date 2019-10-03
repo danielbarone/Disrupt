@@ -1,6 +1,7 @@
-import Home from './home/Home'
-
+import PatientDashboard from './patient/PatientDashboard'
+import PhysicianDashboard from './physician/PhysicianDashboard'
 
 export {
-    Home,
+    PatientDashboard,
+    PhysicianDashboard
 }
