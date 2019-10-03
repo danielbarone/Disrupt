@@ -1,6 +1,12 @@
 import React from "react"
 import { compose, withProps } from "recompose"
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
+import { 
+    withScriptjs, 
+    withGoogleMap, 
+    GoogleMap, 
+    Marker,
+    Circle
+} from "react-google-maps"
 
 const MyMapComponent = compose(
     withProps({
@@ -20,7 +26,7 @@ const MyMapComponent = compose(
     </GoogleMap>
 )
 
-class MapLocation extends React.PureComponent {
+export default class MapLocation extends React.PureComponent {
   state = {
     isMarkerShown: false,
   }
