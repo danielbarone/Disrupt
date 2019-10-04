@@ -20,14 +20,14 @@ const MyMapComponent = compose(
     )((props) =>
     <GoogleMap
         defaultZoom={12}
-        defaultCenter={{ lat: -34.397, lng: 150.644 }}
+        defaultCenter={{ lat: 33.788040, lng: -118.186684}}
     >
-        {props.isMarkerShown && <Marker position={{ lat: -34.397, lng: 150.644 }} options={{ strokeColor: 'blue' }} onClick={props.onMarkerClick} />}
+        {props.isMarkerShown && <Marker position={{ lat: 33.788040, lng: -118.186684 }} options={{ strokeColor: 'blue' }} onClick={props.onMarkerClick} />}
         <Circle 
-            defaultCenter={{ lat: -34.397, lng: 150.644 }}
+            defaultCenter={{ lat: 33.788040, lng: -118.186684}}
             radius={props.circleRadius}
             options={{
-                strokeColor: 'red'
+                strokeColor: '#F16A54'
             }}
         />
     </GoogleMap>
@@ -56,6 +56,7 @@ export default class MapLocation extends React.PureComponent {
   render() {
     return (
       <MyMapComponent
+        isMarkerShown={this.state.isMarkerShown}
         isMarkerShown={this.state.isMarkerShown}
         onMarkerClick={this.handleMarkerClick}
         circleRadius={this.props.circleRadius}

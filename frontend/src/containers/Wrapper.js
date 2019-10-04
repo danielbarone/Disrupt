@@ -1,13 +1,23 @@
 import React from 'react'
-
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { createMuiTheme } from '@material-ui/core/styles'
 import { ThemeProvider } from '@material-ui/styles'
 
 function getTheme(theme){
     return createMuiTheme({
-        palette: {},
-        primary: {},
+        palette: {
+            background: {
+                default: theme.paletteType === 'light' ?
+                     '#EEF2F5': 
+                    '',
+                appBarBackground: 'red'
+            },
+        },
+        primary: {
+            main: theme.paletteType === 'light' ? 
+                '#172D3D' :
+                '#172D3D',
+        },
     })
 }
 

@@ -11,7 +11,6 @@ import TablePagination from '@material-ui/core/TablePagination';
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
-    marginTop: theme.spacing(3),
     overflowX: 'auto',
     paddingRight: '20px',
     paddingLeft: '20px'
@@ -38,6 +37,7 @@ export default function SimpleTable(props) {
 
     const classes = useStyles();
     const [selected, setSelected] = React.useState([]);
+    const [antibiotics, setAntibiotics] = React.useState([])
 
     const handleClick = (event, pathogen) => {
         const selectedIndex = selected.indexOf(pathogen);
@@ -68,9 +68,9 @@ export default function SimpleTable(props) {
             <Table className={classes.table}>
                 <TableHead>
                 <TableRow>
-                    <TableCell>Pathogen</TableCell>
-                    <TableCell align="right">Number of Isolates</TableCell>
-                    <TableCell align="right">Incidence Rate</TableCell>
+                    <TableCell style={{color: '#172D3D'}}>Name</TableCell>
+                    <TableCell style={{color: '#172D3D'}} align="right">Number of Isolates</TableCell>
+                    <TableCell style={{color: '#172D3D'}} align="right">Incidence Rate</TableCell>
                 </TableRow>
                 </TableHead>
                 <TableBody>

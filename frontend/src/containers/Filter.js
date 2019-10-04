@@ -6,10 +6,10 @@ import {
     SyndromeSelect,
     MapLocation,
 } from '../components'
-
-
-import { Grid, Paper } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles';
+import Collapse from '@material-ui/core/Collapse';
+import { Grid, Paper, Typography } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
+import MyLocationIcon from '@material-ui/icons/MyLocation'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -24,7 +24,9 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(2),
     },
     filterContainer: {
-        padding: '20px'
+        padding: '20px',
+        position: 'relative',
+        paddingTop: '36px'
     }
 }));
 
@@ -36,7 +38,10 @@ export default function Filter() {
         date: '',
         location: ''
     });
-
+    const [expanded, setExpanded] = React.useState(false);
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+    }
     const handleSubmit = (event) => {
         event.preventDefault()
         console.log(values)
@@ -57,25 +62,72 @@ export default function Filter() {
     }
 
     return (
-        <Paper className={classes.filterContainer}>
-        <form className={classes.root} autoComplete="off" onSubmit={handleSubmit}>
-            <Grid container style={{marginBottom: '15px'}}>
-                <Grid item xs={4}>
-                    <SyndromeSelect setValues={setValues} values={values} />
-                </Grid>
-                <Grid item xs={4}>
-                    <DateSelect setValues={setValues} values={values} />
-                </Grid>
-                <Grid item xs={4}>
-                    <LocationSelect setValues={setValues} values={values} />
-                </Grid>
-                <Grid item xs={12}>
-                    <MapLocation circleRadius={getRadius()} />
+        <>
+            <Grid container style={{marginTop: '120px'}}>
+                <Grid item xs={12} style={{marginBottom: '10px'}}>
+                    <Typography variant='h6' style={{color: '#172D3D', fontSize: '20px'}}>
+                        Filter
+                    </Typography>
                 </Grid>
             </Grid>
-            <FormButton type='submit'>Send</FormButton>
-        </form>
-        
-        </Paper>
+            <Paper className={classes.filterContainer}>
+                <form className={classes.root} autoComplete="off" onSubmit={handleSubmit}>
+                    <Grid container style={{marginBottom: '15px', paddingBottom: '36px'}}>
+                        <Grid item xs={12}>
+                            <div 
+                                style={{
+                                    height: '64px',
+                                    display: 'flex', 
+                                    alignItems: 'center',
+                                }}>
+                                <SyndromeSelect 
+                                    setValues={setValues} 
+                                    values={values} 
+                                />
+                                <DateSelect 
+                                    setValues={setValues} 
+                                    values={values} 
+                                />
+                                <LocationSelect setValues={setValues} values={values} />
+                            </div>
+
+                        </Grid>
+                        <Grid item xs={12} style={{marginTop: '20px'}}>
+                            <Collapse in={expanded} >
+                                <MapLocation circleRadius={getRadius()} />
+                            </Collapse>
+                        </Grid>
+                    </Grid>
+                    <div 
+                        style={{
+                            height: '50px', 
+                            backgroundColor: '#f5f5f5', 
+                            position: 'absolute', 
+                            bottom: 0, 
+                            left: 0, 
+                            width: '100%',
+                            display: 'flex',
+                            justifyContent: 'flex-end',
+                            paddingRight: '10px'
+                        }}
+                    >
+                        <FormButton type='submit' />
+                    </div>
+                </form>
+                <MyLocationIcon 
+                    style={{
+                        position: 'absolute',
+                        top: 15,
+                        right: 20,
+                        color: !expanded ? '#172D3D' : 'rgba(0, 0, 0, 0.54)',
+                        cursor: 'pointer'
+                    }} 
+                    onClick={handleExpandClick}
+                />
+
+
+            
+            </Paper>
+        </>
     )
 }

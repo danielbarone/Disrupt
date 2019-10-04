@@ -6,18 +6,18 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import AdbIcon from '@material-ui/icons/Adb';
 import BugReportIcon from '@material-ui/icons/BugReport';
+import { Typography } from '@material-ui/core';
 
+import ImageAvatar from './ImageAvatar'
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
   },
   menuButton: {
     marginRight: 36,
-    backgroundColor: '#1b1b1b',
+    backgroundColor: '#F16A54',
   },
   hide: {
     display: 'none',
@@ -75,7 +75,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'flex-end',
     padding: theme.spacing(0, 1),
     ...theme.mixins.toolbar,
-    backgroundColor: '#1b1b1b'
+    backgroundColor: '#F16A54'
   },
   content: {
     flexGrow: 1,
@@ -121,9 +121,6 @@ export default function MiniDrawer(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap style={{color: '#1b1b1b'}}>
-                Dashboard
-          </Typography>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -140,13 +137,13 @@ export default function MiniDrawer(props) {
         }}
         open={open}
       >
-        <div className={classes.toolbar}>
+        <div className={classes.toolbar} style={{height: '70px'}}>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? '' : <ChevronLeftIcon style={{color: '#fff'}}/>}
           </IconButton>
         </div>
         <Divider />
-        <List>
+        <List style={{marginTop: '36px'}}>
           {['Antibiotics', 'Pathogens'].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>{index === 1 ? 
@@ -170,7 +167,29 @@ export default function MiniDrawer(props) {
 
       </Drawer>
       <main className={classes.content}>
-        <div className={classes.toolbar} style={{backgroundColor: 'transparent'}} />
+        <div 
+          style={{
+              backgroundColor: '#fff',
+              height: '64px',
+              width: '90%',
+              position: 'fixed',
+              zIndex: '15',
+              display: 'flex',
+              padding: '0 36px',
+              alignItems: 'center'
+          }} >
+            <div style={{flexGrow: 1}}>
+                <Typography style={{fontSize: '15px', color: 'rgba(0, 0, 0, 0.4)'}}>Search...</Typography>
+            </div>
+            <div style={{display: 'flex', alignItems: 'center'}}>
+              <Typography style={{fontSize: '15px', color: '#6B7983', fontWeight: '400'}}>
+                Dr. Pamela Muresan, MD
+              </Typography>
+            </div>
+            <ImageAvatar />
+
+        </div>
+        
         {props.children}
       </main>
     </div>
