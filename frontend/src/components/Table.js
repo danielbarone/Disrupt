@@ -24,6 +24,34 @@ function createData(pathogen, isolates, incidence) {
     return { pathogen, isolates, incidence };
 }
 
+const orgAnts = {
+    0: [
+        ['amoxicillin', 300], 
+        ['doxycycline', 43], 
+        ['cephalexin', 77]
+    ],
+    1: [
+
+    ],
+    2: [
+
+    ],
+    3: [
+
+    ],
+    4: [
+
+    ],
+    5: [
+
+    ],
+    6: [],
+    7: [],
+    8: [],
+    9: [],
+    10: [],
+}
+
 const rows = [
   createData('E. coli', 61, 28),
   createData('S. aureus', 60, 28),
@@ -39,7 +67,8 @@ export default function SimpleTable(props) {
     const [selected, setSelected] = React.useState([]);
     const [antibiotics, setAntibiotics] = React.useState([])
 
-    const handleClick = (event, pathogen) => {
+    const handleClick = (event, pathogen, isolates) => {
+        console.log(isolates)
         const selectedIndex = selected.indexOf(pathogen);
         let newSelected = [];
         if (selectedIndex === -1) {
@@ -80,7 +109,7 @@ export default function SimpleTable(props) {
                     return (
                         <TableRow 
                             key={row.pathogen}
-                            onClick={event => handleClick(event, row.pathogen)}
+                            onClick={event => handleClick(event, row.pathogen, row.isolates)}
                             tabIndex={-1}
                             selected={isItemSelected}
                             aria-checked={isItemSelected}

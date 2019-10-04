@@ -3,6 +3,7 @@ import { Grid, Typography } from '@material-ui/core'
 import axios from 'axios'
 
 import {
+    AntibioticTable,
     MiniDrawer,
     Table,
 } from '../../components'
@@ -36,7 +37,7 @@ class PhysicianDashboard extends Component {
         const {table_loaded, api_data} = this.state
         return (
             <MiniDrawer>
-                <Grid container style={{padding: '0 46px'}} spacing='2'>
+                <Grid container style={{padding: '0 46px'}} spacing={2}>
                     <Grid item xs={12}>
                         <Filter />
                     </Grid>
@@ -50,6 +51,9 @@ class PhysicianDashboard extends Component {
                             table_loaded={table_loaded}
                             table_data={api_data}
                         />
+                    </Grid>
+                    <Grid item xs={6}> 
+                        <AntibioticTable />
                     </Grid>
                 </Grid>
             </MiniDrawer>

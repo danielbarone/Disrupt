@@ -1,3 +1,4 @@
+import AntibioticTable from './AntibioticTable'
 import DateSelect from './filter/DateSelect'
 import FormButton from './FormButton'
 import LocationSelect from './filter/LocationSelect'
@@ -8,6 +9,7 @@ import MapLocation from './MapLocation'
 import ImageAvatar from './ImageAvatar'
 
 export {
+    AntibioticTable,
     DateSelect,
     FormButton,
     ImageAvatar,
