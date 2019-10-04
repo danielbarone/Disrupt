@@ -29,6 +29,74 @@ class PhysicianDashboard extends Component {
 
     }
 
+    parseApiData = () => {
+        // get "records" from body
+        data = [
+            {
+                "id":31,
+                "syndrome":"Fever",
+                "timeTested":0,
+                "wing":"ICU",
+                "hospital":"Glendale Memorial Hospital",
+                "city":"Glendale",
+                "state":"CA",
+                "bacteria":"Vibrio parahaemolyticus/vulnificus",
+                "antibiotic":"Streptomycin"
+            },
+            {
+                "id":32,
+                "syndrome":"Fever",
+                "timeTested":0,
+                "wing":"ICU",
+                "hospital":"Glendale Memorial Hospital",
+                "city":"Glendale",
+                "state":"CA",
+                "bacteria":"Vibrio parahaemolyticus/vulnificus",
+                "antibiotic":"Streptomycin"
+            },
+            {
+                "id":34,
+                "syndrome":"Fever",
+                "timeTested":0,
+                "wing":"ICU",
+                "hospital":"Glendale Memorial Hospital",
+                "city":"Glendale",
+                "state":"CA",
+                "bacteria":"Vibrio parahaemolyticus/vulnificus",
+                "antibiotic":"Streptomycin"
+            },
+            {
+                "id":37,
+                "syndrome":"Fever",
+                "timeTested":0,
+                "wing":"ICU",
+                "hospital":"Glendale Memorial Hospital",
+                "city":"Glendale",
+                "state":"CA",
+                "bacteria":"Vibrio parahaemolyticus/vulnificus",
+                "antibiotic":"Streptomycin"
+            },
+        ]
+
+        const pathogens = new Map();
+
+        data.forEach(record => {
+            if (!pathogens.has(record.bacteria)) {
+                pathogens.set(record.bacteria, {
+                    isolates: 0,
+                    incidence: 0.0,
+                });
+            }
+
+            const entry = pathogens.get(record.bacteria)
+
+            pathogens.set(record.bacteria, {
+                isolates: entry.isolates + 1,
+                incidence: entry.incidence + (1 / data.length),
+            });
+        });
+    }
+
     async componentDidMount(){
         await this.getApiData()
     }
