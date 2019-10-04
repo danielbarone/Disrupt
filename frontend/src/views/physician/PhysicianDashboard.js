@@ -17,17 +17,17 @@ class PhysicianDashboard extends Component {
         api_data: [],
         table_loaded: false,
     }
-    getApiData = () => {
-        axios.get('https://52773b-01167381.labs.learning.intersystems.com/antibio/api/sus/1')
-            .then(res => {
-                console.log(res.data)
-                this.setState({
-                    api_data: res.data.results,
-                    table_loaded: true,
-                })
-            })
+    // getApiData = () => {
+    //     axios.get('https://52773b-01167381.labs.learning.intersystems.com/antibio/api/sus/1')
+    //         .then(res => {
+    //             console.log(res.data)
+    //             this.setState({
+    //                 api_data: res.data.results,
+    //                 table_loaded: true,
+    //             })
+    //         })
 
-    }
+    // }
 
     parseApiData = () => {
         // get "records" from body
@@ -85,6 +85,7 @@ class PhysicianDashboard extends Component {
                 pathogens.set(record.bacteria, {
                     isolates: 0,
                     incidence: 0.0,
+                    antibiotics: []
                 });
             }
 
@@ -93,6 +94,7 @@ class PhysicianDashboard extends Component {
             pathogens.set(record.bacteria, {
                 isolates: entry.isolates + 1,
                 incidence: entry.incidence + (1 / data.length),
+                antibiotics: entry.antibiotics.concat([record.antibiotic])
             });
         });
     }
