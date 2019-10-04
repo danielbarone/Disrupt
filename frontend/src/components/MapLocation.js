@@ -22,7 +22,9 @@ const MyMapComponent = compose(
         defaultZoom={12}
         defaultCenter={{ lat: 33.788040, lng: -118.186684}}
     >
-        {props.isMarkerShown && <Marker position={{ lat: 33.788040, lng: -118.186684 }} options={{ strokeColor: 'blue' }} onClick={props.onMarkerClick} />}
+        {props.isMarkerShown && <Marker position={{ lat: 33.788040, lng: -118.186684 }} onClick={props.onMarkerClick} />}
+        <Marker position={{ lat: 33.737930, lng: -118.310170 }} options={{ strokeColor: 'blue' }} onClick={props.onMarkerClick} />
+        <Marker position={{ lat: 33.826000, lng: -118.189613 }} options={{ strokeColor: 'blue' }} onClick={props.onMarkerClick} />
         <Circle 
             defaultCenter={{ lat: 33.788040, lng: -118.186684}}
             radius={props.circleRadius}
@@ -56,7 +58,6 @@ export default class MapLocation extends React.PureComponent {
   render() {
     return (
       <MyMapComponent
-        isMarkerShown={this.state.isMarkerShown}
         isMarkerShown={this.state.isMarkerShown}
         onMarkerClick={this.handleMarkerClick}
         circleRadius={this.props.circleRadius}

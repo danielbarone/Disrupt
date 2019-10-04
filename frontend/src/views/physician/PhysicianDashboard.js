@@ -27,40 +27,59 @@ class PhysicianDashboard extends Component {
         var total = 0
 
         for (let i = 0; i < unformatedData.length; i++){
-            console.log(unformatedData[i])
+            // console.log(unformatedData[i])
             if (unformatedData[i].bacteria in orgObj ) {
-                console.log('exists')
+                // console.log('exists')
                 orgObj[unformatedData[i].bacteria] += 1
                 orgWithAntList[unformatedData[i].bacteria].push(unformatedData[i].antibiotic)
                 total += 1
-                console.log(orgObj[unformatedData[i].bacteria])
+                // console.log(orgObj[unformatedData[i].bacteria])
             } else {
-                console.log('doesntexist')
+                // console.log('doesntexist')
                 orgObj[unformatedData[i].bacteria] = 1
                 orgWithAntList[unformatedData[i].bacteria] = [unformatedData[i].antibiotic]
                 total += 1
-                console.log(orgObj[unformatedData[i].bacteria])
+                // console.log(orgObj[unformatedData[i].bacteria])
             }
         }
-        console.log('===============')
-        console.log(orgObj)
-        console.log(total)
+        // console.log('===============')
+        // console.log(orgObj)
+        // console.log(total)
 
         var formatedData = {}
         Object.keys(orgObj).map((keyname, i) => {
-            formatedData[keyname] = [orgObj[keyname], orgObj[keyname]/total*100]
+            formatedData[keyname] = [orgObj[keyname], orgObj[keyname]/total*100, {}]
         })
         
-        console.log(formatedData)
+        // console.log(formatedData)
+
+        Object.keys(formatedData).map((keyname, i) => {
+            var antibiotics_object = {}
+            for (let i = 0; i < orgWithAntList[keyname].length; i++){
+                if (i === 0){
+                    antibiotics_object[orgWithAntList[keyname][i]] = [orgWithAntList[keyname][i], 1]
+                } else {
+                    if (orgWithAntList[keyname][i] in antibiotics_object){
+                        antibiotics_object[orgWithAntList[keyname][i]][1] += 1
+                    } else {
+                        antibiotics_object[orgWithAntList[keyname][i]] = [orgWithAntList[keyname][i], 1]
+                    }
+                }
+            }
+            formatedData[keyname][2] = antibiotics_object
+        })
 
         var superFormatedData = Object.keys(formatedData).map((keyname, index) => ({
             'bacteria': keyname,
             'isolates': formatedData[keyname][0],
             'percent': formatedData[keyname][1],
-            'antibiotics': orgWithAntList[keyname]
+            'antibiotics': formatedData[keyname][2],
         }))
 
-        console.log(superFormatedData)
+        // console.log(superFormatedData)
+
+
+
         return (
             superFormatedData
         )
@@ -76,9 +95,9 @@ class PhysicianDashboard extends Component {
         this.setState({org_selected: thebool})
     }
     getApiData = () => {
-        axios.get('https://52773b-01167381.labs.learning.intersystems.com/antibio/api/sus/Fever/0/Glendale%20Memorial%20Hospital')
+        axios.get('https://52773b-01167381.labs.learning.intersystems.com/antibio/api/sus/Urinary%20tract%20infection/0/Adventist%20Health%20Glendale')
             .then(res => {
-                console.log(res.data.records)
+                // console.log(res.data.records)
                 this.setState({
                     api_data: this.formatData(res.data.records),
                     table_loaded: true,
@@ -86,9 +105,10 @@ class PhysicianDashboard extends Component {
             })
     }
     getApiDataFiltered = (syndrome,time_range,location) => {
+        console.log(`https://52773b-01167381.labs.learning.intersystems.com/antibio/api/sus/${syndrome}/${time_range}/${location}`)
         axios.get(`https://52773b-01167381.labs.learning.intersystems.com/antibio/api/sus/${syndrome}/${time_range}/${location}`)
         .then(res => {
-            console.log(res.data.records)
+            // console.log(res.data.records)
             this.setState({
                 api_data: this.formatData(res.data.records),
                 table_loaded: true,
@@ -110,7 +130,7 @@ class PhysicianDashboard extends Component {
         const {table_loaded, api_data} = this.state
         return (
             <MiniDrawer>
-                <Grid container style={{padding: '0 46px'}} spacing={2}>
+                <Grid container style={{padding: '0 46px', marginBottom: '200px'}} spacing={2}>
                     <Grid item xs={12}>
                         <Filter apiDataFiltered={this.getApiDataFiltered} setTableLoaded={this.setTableLoadedFalse} />
                     </Grid>
@@ -119,7 +139,7 @@ class PhysicianDashboard extends Component {
                             Pathogens
                         </Typography>
                     </Grid>
-                    <Grid item xs={6}> 
+                    <Grid item xs={7}> 
                         <Table 
                             table_loaded={table_loaded}
                             table_data={api_data}
@@ -127,7 +147,7 @@ class PhysicianDashboard extends Component {
                             setOrgSelected={this.setOrgSelected}
                         />
                     </Grid>
-                    <Grid item xs={6}> 
+                    <Grid item xs={5} style={{maxHeight: '400px', overflow: 'scroll'}}> 
                         {/* {this.state.org_selected ? this.state.antibiotics : <AntibioticTable />} */}
                         <AntibioticTable antibiotics={this.state.antibiotics} org_selected={this.state.org_selected} />
                     </Grid>

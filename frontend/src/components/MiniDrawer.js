@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
     }),
   },
   menuButton: {
-    marginRight: 36,
+    // marginRight: 36,
     backgroundColor: '#F16A54',
   },
   hide: {
@@ -137,7 +137,7 @@ export default function MiniDrawer(props) {
         }}
         open={open}
       >
-        <div className={classes.toolbar} style={{height: '70px'}}>
+        <div className={classes.toolbar} style={{height: '80px'}}>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? '' : <ChevronLeftIcon style={{color: '#fff'}}/>}
           </IconButton>
@@ -170,19 +170,22 @@ export default function MiniDrawer(props) {
         <div 
           style={{
               backgroundColor: '#fff',
-              height: '64px',
-              width: '90%',
+              height: '80px',
+              width: '100%',
               position: 'fixed',
               zIndex: '15',
               display: 'flex',
-              padding: '0 36px',
-              alignItems: 'center'
+              alignItems: 'center',
+              marginLeft: '-24px',
+              paddingLeft: '65px',
+              paddingRight: '120px',
+              top: 0,
           }} >
-            <div style={{flexGrow: 1}}>
+            <div style={{flexGrow: 1, }}>
                 <Typography style={{fontSize: '15px', color: 'rgba(0, 0, 0, 0.4)'}}>Search...</Typography>
             </div>
             <div style={{display: 'flex', alignItems: 'center'}}>
-              <Typography style={{fontSize: '15px', color: '#6B7983', fontWeight: '400'}}>
+              <Typography style={{fontSize: '15px', color: '#6B7983', fontWeight: '500'}}>
                 Dr. Pamela Muresan, MD
               </Typography>
             </div>

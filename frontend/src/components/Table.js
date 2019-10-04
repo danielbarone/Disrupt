@@ -8,6 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import TablePagination from '@material-ui/core/TablePagination';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -22,46 +23,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function createData(pathogen, isolates, incidence) {
-    return { pathogen, isolates, incidence };
-}
-
-const orgAnts = {
-    0: [
-        ['amoxicillin', 300], 
-        ['doxycycline', 43], 
-        ['cephalexin', 77]
-    ],
-    1: [
-
-    ],
-    2: [
-
-    ],
-    3: [
-
-    ],
-    4: [
-
-    ],
-    5: [
-
-    ],
-    6: [],
-    7: [],
-    8: [],
-    9: [],
-    10: [],
-}
-
-const rows = [
-  createData('E. coli', 61, 28),
-  createData('S. aureus', 60, 28),
-  createData('Salmonella spp', 49, 22),
-  createData('E. coli 2', 61, 28),
-  createData('S. aureus 2', 60, 28),
-  createData('Salmonella spp 2', 49, 22),
-];
 
 export default function SimpleTable(props) {
 
@@ -126,10 +87,46 @@ export default function SimpleTable(props) {
                                 }}
                             >
                             <TableCell component="th" scope="row">
-                                {row.bacteria}
+                                <Typography 
+                                    style={{
+                                        fontSize: '14px',
+                                        fontWeight: '400',
+                                    }}
+                                >
+                                    {row.bacteria}
+                                </Typography>
                             </TableCell>
-                            <TableCell align="right">{row.isolates}</TableCell>
-                            <TableCell align="right">{row.percent.toFixed(2)}</TableCell>
+                            <TableCell align="right">
+                                <div
+                                    style={{
+                                        backgroundColor: '#5FE0C6',
+                                        padding: '2px 12px',
+                                        borderRadius: '4px',
+                                        display: 'inline-block'
+                                    }}
+                                >
+                                    <Typography 
+                                        style={{
+                                            fontSize: '14px',
+                                            fontWeight: '500',
+                                            color: '#fff'
+                                        }}
+                                    >
+                                        {row.isolates}
+                                    </Typography>
+                                </div>
+                            </TableCell>
+                            <TableCell align="right">
+                                <Typography 
+                                    style={{
+                                        fontSize: '12px',
+                                        fontWeight: '500',
+                                        color: '#7252cf'
+                                    }}
+                                >
+                                    {row.percent.toFixed(2)} %
+                                </Typography>
+                            </TableCell>
                             </TableRow>
                         )
                     })}

@@ -1,105 +1,92 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import TablePagination from '@material-ui/core/TablePagination';
 import AdbIcon from '@material-ui/icons/Adb';
 import { Typography } from '@material-ui/core';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    width: '100%',
-    overflowX: 'auto',
-    paddingRight: '20px',
-    paddingLeft: '20px'
 
-  },
-  table: {
-  },
-}));
 
-function createData(pathogen, isolates, incidence) {
-    return { pathogen, isolates, incidence };
-}
 
-const orgAnts = {
-    0: [
-        ['amoxicillin', 300], 
-        ['doxycycline', 43], 
-        ['cephalexin', 77]
-    ],
-    1: [
+// const orgAnts = {
+//     0: [
+//         ['amoxicillin', 300], 
+//         ['doxycycline', 43], 
+//         ['cephalexin', 77]
+//     ],
+// }
 
-    ],
-    2: [
-
-    ],
-    3: [
-
-    ],
-    4: [
-
-    ],
-    5: [
-
-    ],
-    6: [],
-    7: [],
-    8: [],
-    9: [],
-    10: [],
-}
-
-const rows = [
-  createData('E. coli', 61, 28),
-  createData('S. aureus', 60, 28),
-  createData('Salmonella spp', 49, 22),
-  createData('E. coli 2', 61, 28),
-  createData('S. aureus 2', 60, 28),
-  createData('Salmonella spp 2', 49, 22),
-];
 
 export default function AntibioticTable(props) {
-
-    const classes = useStyles();
-    const [selected, setSelected] = React.useState([]);
-    const [antibiotics, setAntibiotics] = React.useState([])
-
-    const handleClick = (event, pathogen, isolates) => {
-        console.log(isolates)
-        const selectedIndex = selected.indexOf(pathogen);
-        let newSelected = [];
-        if (selectedIndex === -1) {
-          newSelected = [pathogen];
-        }
-        setSelected(newSelected);
-        console.log(pathogen)
-    }
-
-    const isSelected = pathogen => selected.indexOf(pathogen) !== -1;
-
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-    };
-
-    const handleChangeRowsPerPage = event => {
-        setRowsPerPage(+event.target.value);
-        setPage(0);
-    }
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
     
     return (
         <>
-        {props.org_selected ? props.antibiotics :
+        {props.org_selected ? 
+            <>
+                <Typography variant='h6' style={{color: '#172D3D', marginBottom: '10px', fontSize: '20px'}}>
+                    Susceptibilities
+                </Typography>
+                {Object.keys(props.antibiotics).map((keyname, index) => (
+                    <div 
+                        style={{
+                            display: 'flex', 
+                            alignItems: 'center', 
+                            marginBottom: '12px',
+                            borderBottom: 'solid 1px rgba(0, 0, 0, 0.1)',
+                            paddingBottom: '12px',
+                        }}>
+                        <div 
+                            style={{
+                                borderRadius: '100%',
+                                backgroundColor: 'rgba(114, 82, 207, .2)',
+                                height: '40px',
+                                width: '40px',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center'
+                            }}
+                        >
+                            <Typography 
+                                style={{
+                                    color: 'rgba(114, 82, 207, 1)',
+                                    fontWeight: '600',
+                                    fontSize: '12px'
+                                }}
+                            >
+                                {props.antibiotics[keyname][1]}%
+                            </Typography>
+                        </div>
+                        <Typography 
+                            style={{
+                                color: '#172D3D',
+                                fontWeight: '400',
+                                fontSize: '18px',
+                                marginLeft: '12px',
+                                flexGrow: 1
+                            }}
+                        >
+                            {props.antibiotics[keyname][0]}
+                        </Typography>
+                        <div
+                            style={{
+                                backgroundColor: '#5FE0C6',
+                                padding: '2px 12px',
+                                borderRadius: '4px'
+                            }}
+                        >
+                            <Typography 
+                                style={{
+                                    color: '#fff',
+                                    fontWeight: '600',
+                                    fontSize: '14px',
+                                }}
+                            >
+                                {props.antibiotics[keyname][1]} tests
+                            </Typography>
+                        </div>
+                    </div>
+                ))}
+            </>
+        :
             <div 
                 style={{
-
                     paddingTop: '100px',
                     textAlign: 'center'
                 }}

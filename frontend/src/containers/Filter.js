@@ -54,21 +54,21 @@ export default function Filter(props) {
 
     const getRadius = () => {
         if (values.location === '') {
-            return 500
+            return 100
         } else if (values.location === 'Glendale%20Memorial%20Hospital'){
-            return 1000
+            return 100
         } else if (values.location === 'Adventist%20Health%20Glendale'){
-            return 2000
+            return 500
         } else if (values.location === 'St%20Mary%27s%20Hospital'){
-            return 3000
+            return 6000
         } else if (values.location === 'St%20Joseph%27s%20Hospital'){
-            return 4000
+            return 15000
         }
     }
 
     return (
         <>
-            <Grid container style={{marginTop: '120px'}}>
+            <Grid container style={{marginTop: '105px'}}>
                 <Grid item xs={12} style={{marginBottom: '10px'}}>
                     <Typography variant='h6' style={{color: '#172D3D', fontSize: '20px'}}>
                         Filter
@@ -106,7 +106,7 @@ export default function Filter(props) {
                     <div 
                         style={{
                             height: '50px', 
-                            backgroundColor: '#f5f5f5', 
+                            backgroundColor: '#fafafa', 
                             position: 'absolute', 
                             bottom: 0, 
                             left: 0, 
