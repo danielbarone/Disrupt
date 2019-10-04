@@ -1,3 +1,9 @@
 # Antibiogram
 
-Fighting superbugs with real-time data
+Antimicrobial resistance is a growing concern in the healthcare industry that will lead to the rise of superbugs if left unchecked. Doctors today often refer to antibiograms, or charts showing the susceptibilities of various bacteria to antibiotics, to prescribe drugs to patients in emergency situations. Despite their usefulness, these antibiograms are published infrequently and are generally only accessible to infectious disease experts. After consulting with doctors, we devised a new way to generate and publish antibiograms based on the latest data. This new model will make it easier for all healthcare providers to prescribe narrow-spectrum antibiotics that are both effective and safe.
+
+We built our system by integrating with InterSystems IRIS, a leading data platform for the healthcare industry. Our demo today is powered by synthetic data, but IRIS integration will enable us to plug into a variety of data sources (clinics, labs, hospitals, etc.) and access the data through a uniform interface. Our dynamic UI provides granular filtering features that allow doctors to quickly identify the most effective narrow-spectrum antibiotics for their patients. Since antimicrobial resistance profiles vary greatly across different environments, doctors can narrow the scope of the data powering the recommendations down to a specific hospital wing.
+
+We all learned a lot about modern healthcare in building Antibiogram, specifically how much room there is for exciting and disruptive improvements to the processes that power the system today. As the challenges grow in complexity, we're confident that technologists and healthcare professionals will rise to them through close collaboration.
+
+[IRIS management portal](https://52773b-01167381.labs.learning.intersystems.com/csp/sys/UtilHome.csp?$NAMESPACE=USER)
