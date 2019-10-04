@@ -22,9 +22,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function SyndromeSelect(props) {
     const classes = useStyles();
-    // const [values, setValues] = React.useState({
-    //     syndrome: '',
-    // });
 
     function handleChange(event) {
         props.setValues(oldValues => ({

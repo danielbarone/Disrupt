@@ -2,18 +2,6 @@ import React from 'react';
 import AdbIcon from '@material-ui/icons/Adb';
 import { Typography } from '@material-ui/core';
 
-
-
-
-// const orgAnts = {
-//     0: [
-//         ['amoxicillin', 300], 
-//         ['doxycycline', 43], 
-//         ['cephalexin', 77]
-//     ],
-// }
-
-
 export default function AntibioticTable(props) {
     
     return (

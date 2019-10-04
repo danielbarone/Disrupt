@@ -43,7 +43,6 @@ const useStyles = makeStyles(theme => ({
     }),
   },
   menuButton: {
-    // marginRight: 36,
     backgroundColor: '#F16A54',
   },
   hide: {
