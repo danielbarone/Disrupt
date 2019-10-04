@@ -15,6 +15,9 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import AdbIcon from '@material-ui/icons/Adb';
 import BugReportIcon from '@material-ui/icons/BugReport';
+import BusinessIcon from '@material-ui/icons/Business';
+import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
+import DashboardIcon from '@material-ui/icons/Dashboard';
 import { Typography } from '@material-ui/core';
 
 import ImageAvatar from './ImageAvatar'
@@ -144,25 +147,39 @@ export default function MiniDrawer(props) {
         </div>
         <Divider />
         <List style={{marginTop: '36px'}}>
-          {['Antibiotics', 'Pathogens'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index === 1 ? 
-                  <AdbIcon style={{
-                                color: props.color, 
+          <ListItem button>
+              <ListItemIcon>
+                  <DashboardIcon style={{
+                                color: '#F16A54', 
                                 height: props.height ? props.height : '1em',
                                 width: props.width ? props.width : '1em'
                             }} 
-                  /> : 
-                  <BugReportIcon style={{
-                    color: props.color, 
-                    height: props.height ? props.height : '1em',
-                    width: props.width ? props.width : '1em'
-                }} 
-              />}
+                  />
             </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary='Dashboard' />
             </ListItem>
-          ))}
+            <ListItem button>
+              <ListItemIcon>
+                  <BusinessIcon style={{
+                        color: props.color, 
+                        height: props.height ? props.height : '1em',
+                        width: props.width ? props.width : '1em'
+                    }} 
+                  />
+            </ListItemIcon>
+              <ListItemText primary='Hospital' />
+            </ListItem>
+            <ListItem button>
+              <ListItemIcon>
+                  <AssignmentIndIcon style={{
+                        color: props.color, 
+                        height: props.height ? props.height : '1em',
+                        width: props.width ? props.width : '1em'
+                    }} 
+                  />
+            </ListItemIcon>
+              <ListItemText primary='Patient' />
+            </ListItem>
         </List>
 
       </Drawer>

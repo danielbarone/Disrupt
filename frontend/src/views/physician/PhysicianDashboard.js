@@ -48,7 +48,7 @@ class PhysicianDashboard extends Component {
 
         var formatedData = {}
         Object.keys(orgObj).map((keyname, i) => {
-            formatedData[keyname] = [orgObj[keyname], orgObj[keyname]/total*100, {}]
+            formatedData[keyname] = [orgObj[keyname], orgObj[keyname]/total*100, {}, orgWithAntList[keyname].length]
         })
         
         // console.log(formatedData)
@@ -56,14 +56,10 @@ class PhysicianDashboard extends Component {
         Object.keys(formatedData).map((keyname, i) => {
             var antibiotics_object = {}
             for (let i = 0; i < orgWithAntList[keyname].length; i++){
-                if (i === 0){
-                    antibiotics_object[orgWithAntList[keyname][i]] = [orgWithAntList[keyname][i], 1]
+                if (orgWithAntList[keyname][i] in antibiotics_object){
+                    antibiotics_object[orgWithAntList[keyname][i]][1] += 1
                 } else {
-                    if (orgWithAntList[keyname][i] in antibiotics_object){
-                        antibiotics_object[orgWithAntList[keyname][i]][1] += 1
-                    } else {
-                        antibiotics_object[orgWithAntList[keyname][i]] = [orgWithAntList[keyname][i], 1]
-                    }
+                    antibiotics_object[orgWithAntList[keyname][i]] = [orgWithAntList[keyname][i], 1, orgWithAntList[keyname].length]
                 }
             }
             formatedData[keyname][2] = antibiotics_object
@@ -76,7 +72,7 @@ class PhysicianDashboard extends Component {
             'antibiotics': formatedData[keyname][2],
         }))
 
-        // console.log(superFormatedData)
+        console.log(superFormatedData)
 
 
 

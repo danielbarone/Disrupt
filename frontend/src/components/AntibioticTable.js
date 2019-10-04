@@ -23,7 +23,9 @@ export default function AntibioticTable(props) {
                 <Typography variant='h6' style={{color: '#172D3D', marginBottom: '10px', fontSize: '20px'}}>
                     Susceptibilities
                 </Typography>
-                {Object.keys(props.antibiotics).map((keyname, index) => (
+                {Object.keys(props.antibiotics).map((keyname, index) => {
+                    const ant_percent = props.antibiotics[keyname][1]/props.antibiotics[keyname][2]*100
+                    return (
                     <div 
                         style={{
                             display: 'flex', 
@@ -36,8 +38,8 @@ export default function AntibioticTable(props) {
                             style={{
                                 borderRadius: '100%',
                                 backgroundColor: 'rgba(114, 82, 207, .2)',
-                                height: '40px',
-                                width: '40px',
+                                height: '45px',
+                                width: '45px',
                                 display: 'flex',
                                 justifyContent: 'center',
                                 alignItems: 'center'
@@ -50,7 +52,7 @@ export default function AntibioticTable(props) {
                                     fontSize: '12px'
                                 }}
                             >
-                                {props.antibiotics[keyname][1]}%
+                                {ant_percent.toFixed()}%
                             </Typography>
                         </div>
                         <Typography 
@@ -82,7 +84,8 @@ export default function AntibioticTable(props) {
                             </Typography>
                         </div>
                     </div>
-                ))}
+                    )
+                })}
             </>
         :
             <div 

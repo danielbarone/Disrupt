@@ -8,7 +8,7 @@ const useStyles = makeStyles({
     margin: 10,
     marginLeft: '16px',
     width: 35,
-    height: 35
+    height: 35,
   },
 
 });
