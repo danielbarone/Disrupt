@@ -7,13 +7,15 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import TablePagination from '@material-ui/core/TablePagination';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
     overflowX: 'auto',
     paddingRight: '20px',
-    paddingLeft: '20px'
+    paddingLeft: '20px',
+    minHeight: '376px'
 
   },
   table: {
@@ -65,16 +67,16 @@ export default function SimpleTable(props) {
 
     const classes = useStyles();
     const [selected, setSelected] = React.useState([]);
-    const [antibiotics, setAntibiotics] = React.useState([])
 
-    const handleClick = (event, pathogen, isolates) => {
-        console.log(isolates)
+    const handleClick = (event, pathogen, antibiotics) => {
         const selectedIndex = selected.indexOf(pathogen);
         let newSelected = [];
         if (selectedIndex === -1) {
           newSelected = [pathogen];
         }
         setSelected(newSelected);
+        props.setAntibiotics(antibiotics)
+        props.setOrgSelected(true)
         console.log(pathogen)
     }
 
@@ -90,64 +92,82 @@ export default function SimpleTable(props) {
         setRowsPerPage(+event.target.value);
         setPage(0);
     }
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
-    
+
+    const createRows = () => {
+        
+        const rows = props.table_data
+        const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+
+        
+        return(
+            <>
+                <Table className={classes.table}>
+                    <TableHead>
+                    <TableRow>
+                        <TableCell style={{color: '#172D3D'}}>Name</TableCell>
+                        <TableCell style={{color: '#172D3D'}} align="right">Number of Isolates</TableCell>
+                        <TableCell style={{color: '#172D3D'}} align="right">Incidence Rate</TableCell>
+                    </TableRow>
+                    </TableHead>
+                    <TableBody>
+                    {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => {
+                        const isItemSelected = isSelected(row.bacteria);
+
+                        return (
+                            <TableRow 
+                                key={row.bacteria}
+                                onClick={event => handleClick(event, row.bacteria, row.antibiotics)}
+                                tabIndex={-1}
+                                selected={isItemSelected}
+                                aria-checked={isItemSelected}
+                                style={{
+                                    cursor: 'pointer',
+                                    backgroundColor: isItemSelected ? 'rgba(0, 0, 0, 0.04)' : ''
+                                }}
+                            >
+                            <TableCell component="th" scope="row">
+                                {row.bacteria}
+                            </TableCell>
+                            <TableCell align="right">{row.isolates}</TableCell>
+                            <TableCell align="right">{row.percent.toFixed(2)}</TableCell>
+                            </TableRow>
+                        )
+                    })}
+                    {emptyRows > 0 && (
+                        <TableRow style={{ height: 53 * emptyRows }}>
+                            <TableCell colSpan={6} />
+                        </TableRow>
+                    )}
+                    </TableBody>
+                </Table>
+                <TablePagination
+                    rowsPerPageOptions={[5, 10, 25]}
+                    component="div"
+                    count={rows.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    backIconButtonProps={{
+                        'aria-label': 'previous page',
+                    }}
+                    nextIconButtonProps={{
+                        'aria-label': 'next page',
+                    }}
+                    onChangePage={handleChangePage}
+                    onChangeRowsPerPage={handleChangeRowsPerPage}
+                />
+            </>
+        )
+    }
+
     return (
         <Paper className={classes.root}>
-            <Table className={classes.table}>
-                <TableHead>
-                <TableRow>
-                    <TableCell style={{color: '#172D3D'}}>Name</TableCell>
-                    <TableCell style={{color: '#172D3D'}} align="right">Number of Isolates</TableCell>
-                    <TableCell style={{color: '#172D3D'}} align="right">Incidence Rate</TableCell>
-                </TableRow>
-                </TableHead>
-                <TableBody>
-                {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => {
-                    const isItemSelected = isSelected(row.pathogen);
-
-                    return (
-                        <TableRow 
-                            key={row.pathogen}
-                            onClick={event => handleClick(event, row.pathogen, row.isolates)}
-                            tabIndex={-1}
-                            selected={isItemSelected}
-                            aria-checked={isItemSelected}
-                            style={{
-                                cursor: 'pointer',
-                                backgroundColor: isItemSelected ? 'rgba(0, 0, 0, 0.04)' : ''
-                            }}
-                        >
-                        <TableCell component="th" scope="row">
-                            {row.pathogen}
-                        </TableCell>
-                        <TableCell align="right">{row.isolates}</TableCell>
-                        <TableCell align="right">{row.incidence}</TableCell>
-                        </TableRow>
-                    )
-                })}
-                {emptyRows > 0 && (
-                    <TableRow style={{ height: 53 * emptyRows }}>
-                        <TableCell colSpan={6} />
-                    </TableRow>
-                )}
-                </TableBody>
-            </Table>
-            <TablePagination
-                rowsPerPageOptions={[5, 10, 25]}
-                component="div"
-                count={rows.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                backIconButtonProps={{
-                    'aria-label': 'previous page',
-                }}
-                nextIconButtonProps={{
-                    'aria-label': 'next page',
-                }}
-                onChangePage={handleChangePage}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
-            />
+            {props.table_loaded ? 
+                createRows() : 
+                <div style={{display: 'flex', justifyContent: 'center', paddingTop: '130px'}}>
+                    <CircularProgress />
+                </div>
+                
+            }
         </Paper>
     );
 }

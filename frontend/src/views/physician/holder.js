@@ -1,3 +1,72 @@
+import React, { Component } from 'react'
+import { Grid, Typography } from '@material-ui/core'
+import axios from 'axios'
+
+import {
+    AntibioticTable,
+    MiniDrawer,
+    Table,
+} from '../../components'
+import {
+    Filter,
+} from '../../containers'
+
+class PhysicianDashboard extends Component {
+
+    state = {
+        api_data: [],
+        table_loaded: false,
+    }
+    getApiData = () => {
+        axios.get('https://52773b-01167381.labs.learning.intersystems.com/antibio/api/sus/1')
+            .then(res => {
+                console.log(res.data)
+                this.setState({
+                    api_data: res.data.results,
+                    table_loaded: true,
+                })
+            })
+    }
+
+    async componentDidMount(){
+        await this.getApiData()
+    }
+
+    render(){
+        const {table_loaded, api_data} = this.state
+        return (
+            <MiniDrawer>
+                <Grid container style={{padding: '0 46px'}} spacing={2}>
+                    <Grid item xs={12}>
+                        <Filter />
+                    </Grid>
+                    <Grid item xs={12} style={{marginTop: '36px'}}>
+                        <Typography variant='h6' style={{color: '#172D3D', fontSize: '20px'}}>
+                            Pathogens
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={6}> 
+                        <Table 
+                            table_loaded={table_loaded}
+                            table_data={api_data}
+                        />
+                    </Grid>
+                    <Grid item xs={6}> 
+                        <AntibioticTable />
+                    </Grid>
+                </Grid>
+            </MiniDrawer>
+        )
+    }
+}
+
+export default PhysicianDashboard
+
+
+
+
+
+
 
 
 
@@ -34,7 +103,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export default function Filter(props) {
+export default function Filter() {
     const classes = useStyles();
     const [values, setValues] = React.useState({
         syndrome: '',
@@ -47,21 +116,19 @@ export default function Filter(props) {
     }
     const handleSubmit = (event) => {
         event.preventDefault()
-        console.log(values.syndrome,values.date,values.location)
-        props.setTableLoaded()
-        props.apiDataFiltered(values.syndrome,values.date,values.location)
+        console.log(values)
     }
 
     const getRadius = () => {
         if (values.location === '') {
             return 500
-        } else if (values.location === 'Glendale%20Memorial%20Hospital'){
+        } else if (values.location === 0){
             return 1000
-        } else if (values.location === 'Adventist%20Health%20Glendale'){
+        } else if (values.location === 1){
             return 2000
-        } else if (values.location === 'St%20Mary%27s%20Hospital'){
+        } else if (values.location === 2){
             return 3000
-        } else if (values.location === 'St%20Joseph%27s%20Hospital'){
+        } else if (values.location === 3){
             return 4000
         }
     }

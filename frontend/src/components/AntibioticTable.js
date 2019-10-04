@@ -8,6 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import TablePagination from '@material-ui/core/TablePagination';
 import AdbIcon from '@material-ui/icons/Adb';
+import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -94,21 +95,27 @@ export default function AntibioticTable(props) {
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
     
     return (
-        <div 
-            style={{
-                display: 'flex', 
-                justifyContent: 'center',
-                paddingTop: '100px'
-            }}
-        >
-            <AdbIcon 
+        <>
+        {props.org_selected ? props.antibiotics :
+            <div 
                 style={{
-                    color: 'rgba(0, 0, 0, 0.4)',
-                    height: '2em',
-                    width: '2em'
-                }} 
 
-            />
-        </div>
+                    paddingTop: '100px',
+                    textAlign: 'center'
+                }}
+            >
+                <AdbIcon 
+                    style={{
+                        color: 'rgba(0, 0, 0, 0.4)',
+                        height: '2em',
+                        width: '2em'
+                    }} 
+                />
+                <Typography style={{color: 'rgb(107, 121, 131)', fontWeight: '500', marginTop: '12px'}}>
+                    Please select a pathogen.
+                </Typography>
+            </div>
+        }
+        </>
     );
 }

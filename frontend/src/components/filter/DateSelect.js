@@ -41,10 +41,9 @@ export default function DateSelect(props) {
                     id: 'date-simple',
                 }}
             >
-                <MenuItem value={30}>Last 30 days</MenuItem>
-                <MenuItem value={90}>Last 3 months</MenuItem>
-                <MenuItem value={180}>Last 6 months</MenuItem>
-                <MenuItem value={365}>Last year</MenuItem>
+                <MenuItem value={0}>Last 30 days</MenuItem>
+                <MenuItem value={1}>Last 3 months</MenuItem>
+                <MenuItem value={2}>Last 6 months</MenuItem>
             </Select>
         </FormControl>
   );

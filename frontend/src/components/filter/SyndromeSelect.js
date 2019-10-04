@@ -44,9 +44,9 @@ export default function SyndromeSelect(props) {
                     id: 'syndrome-simple',
                 }}
             >
-                <MenuItem value={0}>Endocarditis</MenuItem>
-                <MenuItem value={1}>Sepsis</MenuItem>
-                <MenuItem value={2}>Urinary Tract Infection</MenuItem>
+                <MenuItem value={'Fever'}>Fever</MenuItem>
+                <MenuItem value={'Urinary%20tract%20infection'}>Urinary tract infection</MenuItem>
+                <MenuItem value={'Sore%20throat'}>Throat infection</MenuItem>
             </Select>
         </FormControl>
   );

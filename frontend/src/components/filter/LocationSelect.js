@@ -41,10 +41,10 @@ export default function LocationSelect(props) {
                     id: 'location-simple',
                 }}
             >
-                <MenuItem value={0}>Intensive Care Unit</MenuItem>
-                <MenuItem value={1}>USC Verdugo Hills Hospital</MenuItem>
-                <MenuItem value={2}>Glendale, CA</MenuItem>
-                <MenuItem value={3}>Los Angeles County</MenuItem>
+                <MenuItem value={'Glendale%20Memorial%20Hospital'}>Intensive Care Unit</MenuItem>
+                <MenuItem value={'Adventist%20Health%20Glendale'}>USC Verdugo Hills Hospital</MenuItem>
+                <MenuItem value={'St%20Mary%27s%20Hospital'}>Glendale, CA</MenuItem>
+                <MenuItem value={'St%20Joseph%27s%20Hospital'}>Los Angeles County</MenuItem>
             </Select>
         </FormControl>
   );
